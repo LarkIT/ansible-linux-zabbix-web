@@ -1,29 +1,31 @@
 # tasks/main.yml
-# Install and configure Zabbix web frontend
+# Configure Zabbix web frontend
 
 - name: Ensure that extra packages are installed
   yum:
     name: ['policycoreutils-python', 'firewalld', 'python-firewall']
     state: installed
+
 - name: Start firewalld service
   service:
     name: firewalld
     state: started
     enabled: yes  
-- include_role: 
-    name: dj-wasabi.zabbix-web
+
 - name: Enable httpd_can_network_connect_db SELinux boolean
   seboolean:
     name: httpd_can_network_connect_db
     state: yes
     persistent: yes
   register: se_bool_httpd_can_network_connect_db
+
 - name: Enable httpd_can_connect_zabbix SELinux boolean
   seboolean:
     name: httpd_can_connect_zabbix
     state: yes
     persistent: yes
   register: se_bool_httpd_can_connect_zabbix
+
 - name: Enable httpd_can_connect_ldap
   seboolean:
     name: httpd_can_connect_ldap
@@ -31,22 +33,31 @@
     persistent: yes
   register: se_bool_httpd_can_connect_ldap
   when: zabbix_setsebool_httpd_can_connect_ldap
+
 - name: Restart httpd service after SELinux changes
   service:
     name: httpd
     state: restarted
-  when: ['se_bool_httpd_can_network_connect_db is changed','se_bool_httpd_can_connect_zabbix is changed','se_bool_httpd_can_connect_ldap is changed']
+  when: 
+    - se_bool_httpd_can_network_connect_db is changed
+    - se_bool_httpd_can_connect_zabbix is changed
+    - se_bool_httpd_can_connect_ldap is changed
+
 - name: Open http port in firewall
   firewalld:
     port: 80/tcp
     permanent: yes
     state: enabled
   register: firewall80
+
 - name: Reload firewall
   command: firewall-cmd --reload
   when: firewall80 is changed
   register: firewallcmdout
-- debug: var=firewallcmdout
+
+- debug: 
+    var: firewallcmdout
+
 - name: Create empty file for ALB health check
   file:
     path: /var/www/html/healthcheck.html

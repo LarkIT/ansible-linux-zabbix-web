@@ -11,4 +11,8 @@ This role epends on the following Ansible Galaxy roles:
 - dj-wasabi.zabbix-web (https://galaxy.ansible.com/dj-wasabi/zabbix-web)
 
 ## Variables
-See Ansible Galaxy role documentation
+| Variable | Required? | Default Value | Type | Description |
+|----------|--------|-------|------|--------|
+| zabbix_version | Optional | 4.2 | String | Zabbix package major version |
+| zabbix_setsebool_httpd_can_connect_ldap | Optional | false | Boolean | Enables httpd_can_connect_ldap SELinux boolean |
+Refer to Galaxy role documentation for other variables

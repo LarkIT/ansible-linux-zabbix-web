@@ -1,0 +1,4 @@
+# defaults/main.yml
+# Role default variables
+
+zabbix_setsebool_httpd_can_connect_ldap: false
