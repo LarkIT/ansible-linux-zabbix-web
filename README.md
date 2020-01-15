@@ -15,4 +15,5 @@ This role epends on the following Ansible Galaxy roles:
 |----------|--------|-------|------|--------|
 | zabbix_version | Optional | 4.2 | String | Zabbix package major version |
 | zabbix_setsebool_httpd_can_connect_ldap | Optional | false | Boolean | Enables httpd_can_connect_ldap SELinux boolean |
+| zabbix_on_aws | Optional | false | Boolean | When enabled, places a blank file in httpd default docroot to make AWS ELB health checks work |
 Refer to Galaxy role documentation for other variables
