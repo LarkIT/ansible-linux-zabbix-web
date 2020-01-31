@@ -1,6 +1,6 @@
 # tasks/main.yml
 # Configure Zabbix web frontend
-
+---
 - name: Ensure that extra packages are installed
   yum:
     name: ['policycoreutils-python', 'firewalld', 'python-firewall']
