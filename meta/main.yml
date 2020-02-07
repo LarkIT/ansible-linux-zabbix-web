@@ -4,3 +4,4 @@ dependencies:
   - role: dj-wasabi.zabbix-web
     vars: 
       zabbix_version: 4.2
+      zabbix_timezone: America/Denver
