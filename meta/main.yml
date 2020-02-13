@@ -5,3 +5,4 @@ dependencies:
     vars: 
       zabbix_version: 4.2
       zabbix_timezone: America/Denver
+      zabbix_server_hostname: localhost
