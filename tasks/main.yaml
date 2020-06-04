@@ -50,9 +50,16 @@
     state: enabled
   register: firewall80
 
+- name: Open http port in firewall
+  firewalld:
+    port: 443/tcp
+    permanent: yes
+    state: enabled
+  register: firewall443
+
 - name: Reload firewall
   command: firewall-cmd --reload
-  when: firewall80 is changed
+  when: firewall80 is changed or firewall443 is changed
   register: firewallcmdout
 
 - debug: 
