@@ -82,47 +82,47 @@
         mode: 0600
       register: zabbix_web_tls_chain_file
 
-  when: zabbix_apache_web_copy_cop_files
+  when: zabbix_web_copy_tls_cert_files
 
 - name: Enable httpd_can_network_connect_db SELinux boolean
   seboolean:
     name: httpd_can_network_connect_db
     state: yes
-    persistent: yes
+    persistent: true
   register: se_bool_httpd_can_network_connect_db
 
 - name: Enable httpd_can_connect_zabbix SELinux boolean
   seboolean:
     name: httpd_can_connect_zabbix
     state: yes
-    persistent: yes
+    persistent: true
   register: se_bool_httpd_can_connect_zabbix
 
 - name: Enable httpd_can_connect_ldap
   seboolean:
     name: httpd_can_connect_ldap
     state: yes
-    persistent: yes
+    persistent: true
   register: se_bool_httpd_can_connect_ldap
-  when: zabbix_setsebool_httpd_can_connect_ldap
+  when: zabbix_web_setsebool_httpd_can_connect_ldap
 
 - name: Start firewalld service
   service:
     name: firewalld
     state: started
-    enabled: yes  
+    enabled: true
 
 - name: Open http port in firewall
   firewalld:
     port: 80/tcp
-    permanent: yes
+    permanent: true
     state: enabled
   register: firewall80
 
 - name: Open https port in firewall
   firewalld:
     port: 443/tcp
-    permanent: yes
+    permanent: true
     state: enabled
   register: firewall443
 

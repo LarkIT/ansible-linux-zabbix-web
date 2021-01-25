@@ -2,5 +2,5 @@
 # Role default variables
 ---
 zabbix_web_manage_repos: true
-zabbix_setsebool_httpd_can_connect_ldap: false
-zabbix_web_tls_copy_cert_files: false
+zabbix_web_setsebool_httpd_can_connect_ldap: false
+zabbix_web_copy_tls_cert_files: false
