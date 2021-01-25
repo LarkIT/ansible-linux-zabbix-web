@@ -111,6 +111,7 @@
     state: yes
     persistent: true
   register: se_bool_httpd_can_connect_ldap
+  when: zabbix_web_setsebool_httpd_can_connect_ldap
 
 - name: Start firewalld service
   service:
