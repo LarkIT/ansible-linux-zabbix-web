@@ -154,13 +154,8 @@
     - se_bool_httpd_can_network_connect_db.changed
     - se_bool_httpd_can_connect_zabbix.changed
     - se_bool_httpd_can_connect_ldap.changed
-    - zabbix_web_tls_crt_file.changed
-    - zabbix_web_chain_file.changed
-    - zabbix_web_key_file.changed
-    - apache_autoindex_conf is changed
-    - apache_userdir_conf is changed
-    - apache_welcome_conf is changed
-    - apache_httpd_conf is changed
-    - apache_ssl_conf is changed
+    - zabbix_web_tls_cert_file.changed
+    - zabbix_web_tls_chain_file.changed
+    - zabbix_web_tls_key_file.changed
     - apache_zabbix_conf.changed
     - apache_zabbix_nonssl_conf.changed
