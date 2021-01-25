@@ -13,7 +13,15 @@
 
 - name: Create certificate files if needed
   block:
-    - name: Copy certificate chain
+    - name: Copy private key
+      copy: 
+        content: "{{ zabbix_apache_tls_key_content }}"
+        dest: "{{ zabbix_apache_tls_key }}"
+        owner: apache
+        group: apache
+        mode: 0600
+      register: apache_tls_key_file
+    - name: Copy certificate
       copy: 
         content: "{{ zabbix_apache_tls_crt_content }}"
         dest: "{{ zabbix_apache_tls_crt }}"
@@ -31,14 +39,6 @@
         mode: 0600
       register: apache_tls_chain_file
 
-    - name: Copy private key
-      copy: 
-        content: "{{ zabbix_apache_tls_key_content }}"
-        dest: "{{ zabbix_apache_tls_key }}"
-        owner: apache
-        group: apache
-        mode: 0600
-      register: apache_tls_key_file
   when: zabbix_apache_tls_copy_crt_files
 
 - name: Install PHP
