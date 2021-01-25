@@ -29,7 +29,29 @@
     group: root
     mode: '0644'
 
+- name: Copy Apache SSL config
+  template:
+    src: ssl.conf.j2
+    dest: /etc/httpd/conf.d/ssl.conf.j2
+    owner: root
+    group: root
+    mode: '0644'
 
+- name: Copy Apache Zabbix SSL vhost config
+  template:
+    src: 10-zabbix.lark-it.com.conf.j2
+    dest: /etc/httpd/conf.d/10-zabbix.lark-it.com.conf.j2
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Copy Apache Zabbix non-SSL vhost config
+  template:
+    src: 10-zabbix.lark-it.com_nonssl.conf.j2
+    dest: /etc/httpd/conf.d/10-zabbix.lark-it.com_nonssl.conf.j2
+    owner: root
+    group: root
+    mode: '0644'
 
 - name: Create certificate files if needed
   block:
