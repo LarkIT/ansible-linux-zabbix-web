@@ -7,19 +7,19 @@
     state: installed
 
 - name: Remove autoindex.conf
-    file: 
-      path: /etc/httpd/conf.d/autoindex.conf
-      state: absent
+  file: 
+    path: /etc/httpd/conf.d/autoindex.conf
+    state: absent
 
 - name: Remove userdir.conf
-    file: 
-      path: /etc/httpd/conf.d/userdir.conf
-      state: absent
+  file: 
+    path: /etc/httpd/conf.d/userdir.conf
+    state: absent
 
 - name: Remove welcome.conf
-    file: 
-      path: /etc/httpd/conf.d/welcome.conf
-      state: absent
+  file: 
+    path: /etc/httpd/conf.d/welcome.conf
+    state: absent
 
 - name: Copy Apache base config
   template:
