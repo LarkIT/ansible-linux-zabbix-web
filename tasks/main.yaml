@@ -44,7 +44,7 @@
 - name: Install PHP
   include_tasks: php.yml
 
-- name: Install httpd
+# - name: Install httpd
 
 - name: Enable httpd_can_network_connect_db SELinux boolean
   seboolean:
