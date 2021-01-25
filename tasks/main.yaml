@@ -9,7 +9,7 @@
      - firewalld
      - python-firewall
      - yum-utils
-     - centos-release-scl # Modern PHP releases
+     - centos-release-scl
     state: installed
 
 - name: Install Zabbix repo CentOS 7

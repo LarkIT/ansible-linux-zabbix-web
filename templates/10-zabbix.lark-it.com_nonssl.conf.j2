@@ -2,7 +2,7 @@
 # This file is managed by Ansible. Any manual changes will be reverted.
 
 <VirtualHost *:80>
-  ServerName zabbix.lark-it.com
+  ServerName {{ zabbix_web_url }}
 
   ## Vhost docroot
   DocumentRoot "/usr/share/zabbix"
@@ -16,14 +16,14 @@
   </Directory>
 
   ## Logging
-  ErrorLog "/var/log/httpd/zabbix.lark-it.com_nonssl_error.log"
+  ErrorLog "/var/log/httpd/{{ zabbix_web_url }}_nonssl_error.log"
   ServerSignature Off
-  CustomLog "/var/log/httpd/zabbix.lark-it.com_nonssl_access.log" combined
+  CustomLog "/var/log/httpd/{{ zabbix_web_url }}_nonssl_access.log" combined
   ## Rewrite rules
   RewriteEngine On
 
   #redirect all to https
   RewriteCond %{SERVER_PORT} !^443$
-  RewriteRule ^/(.*)$ https://zabbix.lark-it.com/$1 [L,R]
+  RewriteRule ^/(.*)$ https://{{ zabbix_web_url }}/$1 [L,R]
 
 </VirtualHost>
