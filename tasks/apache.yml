@@ -133,11 +133,16 @@
     - firewall443 is changed
   register: firewallcmdout
 
+- name: Start Apache
+  service:
+    name: httpd
+    state: started
+    enabled: true
+
 - name: Restart httpd service after changes
   service:
     name: httpd
     state: restarted
-    enabled: true
   when: 
     - se_bool_httpd_can_network_connect_db is changed
     - se_bool_httpd_can_connect_zabbix is changed
