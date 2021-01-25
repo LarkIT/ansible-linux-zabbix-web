@@ -1,0 +1,29 @@
+# Apache vhost for Zabbix
+# This file is managed by Ansible. Any manual changes will be reverted.
+
+<VirtualHost *:80>
+  ServerName zabbix.lark-it.com
+
+  ## Vhost docroot
+  DocumentRoot "/usr/share/zabbix"
+
+  ## Directories, there should at least be a declaration for /usr/share/zabbix
+
+  <Directory "/usr/share/zabbix">
+    Options Indexes FollowSymLinks MultiViews
+    AllowOverride None
+    Require all granted
+  </Directory>
+
+  ## Logging
+  ErrorLog "/var/log/httpd/zabbix.lark-it.com_nonssl_error.log"
+  ServerSignature Off
+  CustomLog "/var/log/httpd/zabbix.lark-it.com_nonssl_access.log" combined
+  ## Rewrite rules
+  RewriteEngine On
+
+  #redirect all to https
+  RewriteCond %{SERVER_PORT} !^443$
+  RewriteRule ^/(.*)$ https://zabbix.lark-it.com/$1 [L,R]
+
+</VirtualHost>

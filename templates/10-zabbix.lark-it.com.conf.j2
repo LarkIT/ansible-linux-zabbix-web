@@ -1,0 +1,66 @@
+# Apache SSL vhost for Zabbix
+# This file is managed by Ansible. Any manual changes will be reverted.
+
+
+<VirtualHost *:443>
+  ServerName {{ zabbix_web_url }}
+
+  ## Vhost docroot
+  DocumentRoot "/usr/share/zabbix"
+
+  ## Directories, there should at least be a declaration for /usr/share/zabbix
+
+  <Directory "/usr/share/zabbix">
+    AllowOverride None
+    Require all granted
+  </Directory>
+
+  <Directory "/usr/share/zabbix/conf">
+    AllowOverride None
+    Require all denied
+  </Directory>
+
+  <Directory "/usr/share/zabbix/api">
+    AllowOverride None
+    Require all denied
+  </Directory>
+
+  <Directory "/usr/share/zabbix/include">
+    AllowOverride None
+    Require all denied
+  </Directory>
+
+  <Directory "/usr/share/zabbix/include/classes">
+    AllowOverride None
+    Require all denied
+  </Directory>
+
+  ## Logging
+  ErrorLog "/var/log/httpd/{{ zabbix_web_url }}_error_ssl.log"
+  ServerSignature Off
+  CustomLog "/var/log/httpd/{{ zabbix_web_url }}_access_ssl.log" combined
+  ## Rewrite rules
+  RewriteEngine On
+
+  RewriteRule ^$ /index.php [L]
+
+
+  ## SSL directives
+  SSLEngine on
+  SSLCertificateFile      "{{ zabbix_web_tls_cert }}"
+  SSLCertificateKeyFile   "{{ zabbix_web_tls_key }}"
+  SSLCertificateChainFile "{{ zabbix_web_tls_chain }}"
+  SSLCipherSuite          ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!3DES:!MD5:!PSK
+
+  ## Custom fragment
+
+   php_value max_execution_time 300
+   php_value memory_limit 128M
+   php_value post_max_size 16M
+   php_value upload_max_filesize 2M
+   php_value max_input_time 300
+   php_value always_populate_raw_post_data -1
+   php_value max_input_vars 1000
+   # Set correct timezone
+   php_value date.timezone America/Denver
+</VirtualHost>

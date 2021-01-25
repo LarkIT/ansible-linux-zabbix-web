@@ -8,7 +8,6 @@
       yum:
         name: 
           - epel-release
-          - yum-utils
           - http://rpms.remirepo.net/enterprise/remi-release-7.rpm
         state: installed
     
@@ -23,6 +22,7 @@
   yum:
     name:
      - php
+     - php-mysqlnd
     state: installed
 
 - name: Configure PHP

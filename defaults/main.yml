@@ -3,4 +3,4 @@
 ---
 zabbix_web_manage_repos: true
 zabbix_setsebool_httpd_can_connect_ldap: false
-zabbix_apache_tls_copy_crt_files: false
+zabbix_web_tls_copy_cert_files: false
