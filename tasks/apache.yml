@@ -139,7 +139,7 @@
     state: started
     enabled: true
 
-- name: Restart httpd service after changes
+- name: Restart Apache service after changes
   service:
     name: httpd
     state: restarted
