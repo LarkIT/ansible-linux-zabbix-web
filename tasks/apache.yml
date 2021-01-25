@@ -10,16 +10,19 @@
   file: 
     path: /etc/httpd/conf.d/autoindex.conf
     state: absent
+  register: apache_autoindex_conf
 
 - name: Remove userdir.conf
   file: 
     path: /etc/httpd/conf.d/userdir.conf
     state: absent
+  register: apache_userdir_conf
 
 - name: Remove welcome.conf
   file: 
     path: /etc/httpd/conf.d/welcome.conf
     state: absent
+  register: apache_welcome_conf
 
 - name: Copy Apache base config
   template:
@@ -28,6 +31,7 @@
     owner: root
     group: root
     mode: '0644'
+  register: apache_httpd_conf
 
 - name: Copy Apache SSL config
   template:
@@ -36,6 +40,7 @@
     owner: root
     group: root
     mode: '0644'
+  register: apache_ssl_conf
 
 - name: Copy Apache Zabbix SSL vhost config
   template:
@@ -44,6 +49,7 @@
     owner: root
     group: root
     mode: '0644'
+  register: apache_zabbix_conf
 
 - name: Copy Apache Zabbix non-SSL vhost config
   template:
@@ -52,6 +58,7 @@
     owner: root
     group: root
     mode: '0644'
+  register: apache_zabbix_nonssl_conf
 
 - name: Create certificate files if needed
   block:
@@ -150,3 +157,10 @@
     - zabbix_web_tls_crt_file is changed
     - zabbix_web_chain_file is changed
     - zabbix_web_key_file is changed
+    - autoindex_conf is changed
+    - userdir_conf is changed
+    - welcome_conf is changed
+    - httpd_conf is changed
+    - ssl_conf is changed
+    - apache_zabbix_conf is changed
+    - apache_zabbix_nonssl_conf
