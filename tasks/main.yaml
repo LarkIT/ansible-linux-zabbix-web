@@ -1,10 +1,14 @@
+---
 # tasks/main.yml
 # Configure Zabbix web frontend
----
 
 - name: Ensure that extra packages are installed
   yum:
-    name: ['policycoreutils-python', 'firewalld', 'python-firewall']
+    name: 
+     - policycoreutils-python
+     - firewalld
+     - python-firewall
+     - httpd
     state: installed
 
 - name: Create certificate files if needed
@@ -35,23 +39,12 @@
         group: apache
         mode: 0600
       register: apache_tls_key_file
-
-    - name: Restart Apache if needed
-      service: 
-        name: httpd
-        state: restarted
-      when: 
-       - apache_tls_crt_file.changed
-       - apache_tls_chain_file.changed
-       - apache_tls_key_file.changed
-
   when: zabbix_apache_tls_copy_crt_files
 
-- name: Start firewalld service
-  service:
-    name: firewalld
-    state: started
-    enabled: yes  
+- name: Install PHP
+  include_tasks: php.yml
+
+- name: Install httpd
 
 - name: Enable httpd_can_network_connect_db SELinux boolean
   seboolean:
@@ -75,14 +68,11 @@
   register: se_bool_httpd_can_connect_ldap
   when: zabbix_setsebool_httpd_can_connect_ldap
 
-- name: Restart httpd service after SELinux changes
+- name: Start firewalld service
   service:
-    name: httpd
-    state: restarted
-  when: 
-    - se_bool_httpd_can_network_connect_db is changed
-    - se_bool_httpd_can_connect_zabbix is changed
-    - se_bool_httpd_can_connect_ldap is changed
+    name: firewalld
+    state: started
+    enabled: yes  
 
 - name: Open http port in firewall
   firewalld:
@@ -91,7 +81,7 @@
     state: enabled
   register: firewall80
 
-- name: Open http port in firewall
+- name: Open https port in firewall
   firewalld:
     port: 443/tcp
     permanent: yes
@@ -100,9 +90,20 @@
 
 - name: Reload firewall
   command: firewall-cmd --reload
-  when: firewall80 is changed or firewall443 is changed
+  when: 
+    - firewall80 is changed
+    - firewall443 is changed
   register: firewallcmdout
 
-- debug: 
-    var: firewallcmdout
-
+- name: Restart httpd service after changes
+  service:
+    name: httpd
+    state: restarted
+    enabled: true
+  when: 
+    - se_bool_httpd_can_network_connect_db is changed
+    - se_bool_httpd_can_connect_zabbix is changed
+    - se_bool_httpd_can_connect_ldap is changed
+    - apache_tls_crt_file is changed
+    - apache_tls_chain_file is changed
+    - apache_tls_key_file is changed
