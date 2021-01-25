@@ -10,6 +10,7 @@
           - epel-release
           - yum-utils
           - http://rpms.remirepo.net/enterprise/remi-release-7.rpm
+        state: installed
     
     - name: Enable PHP repo
       shell: /bin/yum-config-manager --enable remi-php73 && touch /etc/yum.repos.d/.remi_php_enabled
@@ -18,4 +19,8 @@
   
   when: zabbix_web_manage_repos
 
-  
+- name: Install PHP
+  yum:
+    name:
+     - php
+    state: installed
