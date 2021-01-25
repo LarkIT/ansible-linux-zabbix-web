@@ -6,41 +6,41 @@
     name: httpd
     state: installed
 
-- name: Remove autoindex.conf
-  file: 
-    path: /etc/httpd/conf.d/autoindex.conf
-    state: absent
-  register: apache_autoindex_conf
+# - name: Remove autoindex.conf
+#   file: 
+#     path: /etc/httpd/conf.d/autoindex.conf
+#     state: absent
+#   register: apache_autoindex_conf
 
-- name: Remove userdir.conf
-  file: 
-    path: /etc/httpd/conf.d/userdir.conf
-    state: absent
-  register: apache_userdir_conf
+# - name: Remove userdir.conf
+#   file: 
+#     path: /etc/httpd/conf.d/userdir.conf
+#     state: absent
+#   register: apache_userdir_conf
 
-- name: Remove welcome.conf
-  file: 
-    path: /etc/httpd/conf.d/welcome.conf
-    state: absent
-  register: apache_welcome_conf
+# - name: Remove welcome.conf
+#   file: 
+#     path: /etc/httpd/conf.d/welcome.conf
+#     state: absent
+#   register: apache_welcome_conf
 
-- name: Copy Apache base config
-  template:
-    src: httpd.conf.j2
-    dest: /etc/httpd/conf/httpd.conf
-    owner: root
-    group: root
-    mode: '0644'
-  register: apache_httpd_conf
+# - name: Copy Apache base config
+#   template:
+#     src: httpd.conf.j2
+#     dest: /etc/httpd/conf/httpd.conf
+#     owner: root
+#     group: root
+#     mode: '0644'
+#   register: apache_httpd_conf
 
-- name: Copy Apache SSL config
-  template:
-    src: ssl.conf.j2
-    dest: /etc/httpd/conf.d/ssl.conf.j2
-    owner: root
-    group: root
-    mode: '0644'
-  register: apache_ssl_conf
+# - name: Copy Apache SSL config
+#   template:
+#     src: ssl.conf.j2
+#     dest: /etc/httpd/conf.d/ssl.conf.j2
+#     owner: root
+#     group: root
+#     mode: '0644'
+#   register: apache_ssl_conf
 
 - name: Copy Apache Zabbix SSL vhost config
   template:

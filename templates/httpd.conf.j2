@@ -35,9 +35,6 @@ EnableSendfile On
 
 Include "/etc/httpd/conf.modules.d/*.conf"
 
-Listen 443
-Listen 80
-
 LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" combined
 LogFormat "%h %l %u %t \"%r\" %>s %b" common
 LogFormat "%{Referer}i -> %U" referer
