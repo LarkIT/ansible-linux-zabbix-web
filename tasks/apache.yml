@@ -150,7 +150,10 @@
   service:
     name: httpd
     state: restarted
-  when: apache_zabbix_conf.changed
+  when: 
+    - apache_zabbix_conf.changed
+    - apache_zabbix_nonssl_conf.changed
+    
     # - se_bool_httpd_can_network_connect_db.changed
     # - se_bool_httpd_can_connect_zabbix.changed
     # - se_bool_httpd_can_connect_ldap.changed
