@@ -21,6 +21,7 @@
         group: apache
         mode: 0600
       register: apache_tls_key_file
+    
     - name: Copy certificate
       copy: 
         content: "{{ zabbix_apache_tls_crt_content }}"
