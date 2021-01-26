@@ -1,13 +1,6 @@
 # tasks/apache.yml
 # Install and configure Apache for Zabbix web
 
-- name: Install Apache package
-  yum:
-    name: 
-      - httpd
-      - mod_ssl
-    state: installed
-
 # - name: Remove autoindex.conf
 #   file: 
 #     path: /etc/httpd/conf.d/autoindex.conf
@@ -26,28 +19,28 @@
 #     state: absent
 #   register: apache_welcome_conf
 
-- name: Copy Apache base config
-  template:
-    src: httpd.conf.j2
-    dest: /etc/httpd/conf/httpd.conf
-    owner: root
-    group: root
-    mode: '0644'
-  register: apache_httpd_conf
+# - name: Copy Apache base config
+#   template:
+#     src: httpd.conf.j2
+#     dest: /etc/httpd/conf/httpd.conf
+#     owner: root
+#     group: root
+#     mode: '0644'
+#   register: apache_httpd_conf
 
-- name: Copy Apache SSL config
-  template:
-    src: ssl.conf.j2
-    dest: /etc/httpd/conf.d/ssl.conf
-    owner: root
-    group: root
-    mode: '0644'
-  register: apache_ssl_conf
+# - name: Copy Apache SSL config
+#   template:
+#     src: ssl.conf.j2
+#     dest: /etc/httpd/conf.d/ssl.conf
+#     owner: root
+#     group: root
+#     mode: '0644'
+#   register: apache_ssl_conf
 
 - name: Copy Apache Zabbix SSL vhost config
   template:
     src: 10-zabbix.lark-it.com.conf.j2
-    dest: /etc/httpd/conf.d/10-zabbix.lark-it.com.conf
+    dest: /opt/rh/httpd24/root/etc/httpd/conf.d/10-zabbix.lark-it.com.conf
     owner: root
     group: root
     mode: '0644'
@@ -56,7 +49,7 @@
 - name: Copy Apache Zabbix non-SSL vhost config
   template:
     src: 10-zabbix.lark-it.com_nonssl.conf.j2
-    dest: /etc/httpd/conf.d/10-zabbix.lark-it.com_nonssl.conf
+    dest: /opt/rh/httpd24/root/etc/httpd/conf.d/10-zabbix.lark-it.com_nonssl.conf
     owner: root
     group: root
     mode: '0644'
@@ -144,13 +137,13 @@
 
 - name: Start Apache
   service:
-    name: httpd
+    name: httpd24-httpd
     state: started
     enabled: true
 
 - name: Restart Apache service after changes
   service:
-    name: httpd
+    name: httpd24-httpd
     state: restarted
   when: 
     (se_bool_httpd_can_network_connect_db.changed) or

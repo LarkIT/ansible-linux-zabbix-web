@@ -2,16 +2,6 @@
 # tasks/main.yml
 # Configure Zabbix web frontend
 
-- name: Ensure that extra packages are installed
-  yum:
-    name: 
-     - policycoreutils-python
-     - firewalld
-     - python-firewall
-     - yum-utils
-     - centos-release-scl
-    state: installed
-
 - name: Install Zabbix repo CentOS 7
   block:
     - name: Install Zabbix repo package
@@ -24,10 +14,18 @@
   
   when: zabbix_web_manage_repos
 
-- name: Install Zabbix web package
-  yum: 
+- name: Install required packages
+  yum:
     name: 
-      - zabbix-web-mysql-scl
+     - policycoreutils-python
+     - firewalld
+     - python-firewall
+     - yum-utils
+     - centos-release-scl
+     - rh-php72-php # httpd24-httpd is a dependency
+     - httpd24-mod_ssl
+     - zabbix-web-mysql-scl
+    state: installed
 
 # - name: Install PHP
 #   include_tasks: php.yml
