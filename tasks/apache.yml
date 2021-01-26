@@ -1,42 +1,6 @@
 # tasks/apache.yml
 # Install and configure Apache for Zabbix web
 
-# - name: Remove autoindex.conf
-#   file: 
-#     path: /etc/httpd/conf.d/autoindex.conf
-#     state: absent
-#   register: apache_autoindex_conf
-
-# - name: Remove userdir.conf
-#   file: 
-#     path: /etc/httpd/conf.d/userdir.conf
-#     state: absent
-#   register: apache_userdir_conf
-
-# - name: Remove welcome.conf
-#   file: 
-#     path: /etc/httpd/conf.d/welcome.conf
-#     state: absent
-#   register: apache_welcome_conf
-
-# - name: Copy Apache base config
-#   template:
-#     src: httpd.conf.j2
-#     dest: /etc/httpd/conf/httpd.conf
-#     owner: root
-#     group: root
-#     mode: '0644'
-#   register: apache_httpd_conf
-
-# - name: Copy Apache SSL config
-#   template:
-#     src: ssl.conf.j2
-#     dest: /etc/httpd/conf.d/ssl.conf
-#     owner: root
-#     group: root
-#     mode: '0644'
-#   register: apache_ssl_conf
-
 - name: Copy Apache Zabbix SSL vhost config
   template:
     src: 10-zabbix.lark-it.com.conf.j2
@@ -158,7 +122,5 @@
     (zabbix_web_tls_cert_file.changed) or
     (zabbix_web_tls_chain_file.changed) or
     (zabbix_web_tls_key_file.changed) or
-    (apache_httpd_conf.changed) or
-    (apache_ssl_conf.changed) or
     (apache_zabbix_conf.changed) or
     (apache_zabbix_nonssl_conf.changed)
