@@ -57,6 +57,12 @@
 
 - name: Create certificate files if needed
   block:
+    - name: Ensure key directory exists
+      file:
+        path: "{{ zabbix_web_tls_key_dir }}"
+    - name: Ensure certs directory exists
+      file:
+        path: "{{ zabbix_web_tls_certs_dir }}"
     - name: Copy private key
       copy: 
         content: "{{ zabbix_web_tls_key_content }}"
