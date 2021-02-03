@@ -1,0 +1,31 @@
+<?php
+// Zabbix GUI configuration file.
+
+$DB['TYPE']                     = '{{ zabbix_web_dbtype }}';
+$DB['SERVER']                   = '{{ zabbix_web_dbhost }}';
+$DB['PORT']                     = '{{ zabbix_web_dbport }}';
+$DB['DATABASE']                 = '{{ zabbix_web_dbname }}';
+$DB['USER']                     = '{{ zabbix_web_dbuser }}';
+$DB['PASSWORD']                 = '{{ zabbix_web_dbpassword }}';
+
+// Schema name. Used for PostgreSQL.
+$DB['SCHEMA']                   = '';
+
+// Used for TLS connection.
+$DB['ENCRYPTION']               = false;
+$DB['KEY_FILE']                 = '';
+$DB['CERT_FILE']                = '';
+$DB['CA_FILE']                  = '';
+$DB['VERIFY_HOST']              = false;
+$DB['CIPHER_LIST']              = '';
+
+// Use IEEE754 compatible value range for 64-bit Numeric (float) history values.
+// This option is enabled by default for new Zabbix installations.
+// For upgraded installations, please read database upgrade notes before enabling this option.
+$DB['DOUBLE_IEEE754']           = true;
+
+$ZBX_SERVER                     = '{{ zabbix_web_server_hostname }}';
+$ZBX_SERVER_PORT                = '{{ zabbix_web_server_port }}';
+$ZBX_SERVER_NAME                = '{{ zabbix_web_server_name }}';
+
+$IMAGE_FORMAT_DEFAULT           = IMAGE_FORMAT_PNG;

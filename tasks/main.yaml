@@ -29,8 +29,20 @@
      - zabbix-web-mysql-scl
     state: installed
 
-# - name: Install PHP
-#   include_tasks: php.yml
-
 - name: Install httpd
   include_tasks: apache.yml
+
+- name: Install Zabbix web config file
+  template:
+    src: zabbix.conf.php.j2
+    dest: /etc/zabbix/web/zabbix.conf.php
+    owner: apache
+    group: apache
+    mode: '0640'
+  register: zabbix_web_conf
+
+- name: Restart Apache service after changes
+  service:
+    name: httpd24-httpd
+    state: restarted
+  when: zabbix_web_conf.changed
