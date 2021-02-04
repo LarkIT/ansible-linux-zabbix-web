@@ -16,6 +16,12 @@
   
   when: zabbix_web_manage_repos
 
+- name: Install SCL Repo
+  yum: 
+    name: 
+     - centos-release-scl
+    state: installed
+
 - name: Install required packages
   yum:
     name: 
@@ -23,7 +29,6 @@
      - firewalld
      - python-firewall
      - yum-utils
-     - centos-release-scl
      - rh-php72-php # httpd24-httpd is a dependency
      - httpd24-mod_ssl
      - zabbix-web-mysql-scl
