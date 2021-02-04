@@ -24,9 +24,17 @@
     - name: Ensure key directory exists
       file:
         path: "{{ zabbix_web_tls_key_dir }}"
+        owner: root
+        group: root
+        mode: '0644'
+        state: direcotry
     - name: Ensure certs directory exists
       file:
         path: "{{ zabbix_web_tls_certs_dir }}"
+        owner: root
+        group: root
+        mode: '0644'
+        state: directory
     - name: Copy private key
       copy: 
         content: "{{ zabbix_web_tls_key_content }}"
