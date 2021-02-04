@@ -16,9 +16,9 @@
   </Directory>
 
   ## Logging
-  ErrorLog "/var/log/httpd/{{ zabbix_web_url }}_nonssl_error.log"
+  ErrorLog "/var/log/httpd24/{{ zabbix_web_url }}_nonssl_error.log"
   ServerSignature Off
-  CustomLog "/var/log/httpd/{{ zabbix_web_url }}_nonssl_access.log" combined
+  CustomLog "/var/log/httpd24/{{ zabbix_web_url }}_nonssl_access.log" combined
   ## Rewrite rules
   RewriteEngine On
 

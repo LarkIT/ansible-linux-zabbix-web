@@ -36,9 +36,9 @@
   </Directory>
 
   ## Logging
-  ErrorLog "/var/log/httpd/{{ zabbix_web_url }}_error_ssl.log"
+  ErrorLog "/var/log/httpd24/{{ zabbix_web_url }}_error_ssl.log"
   ServerSignature Off
-  CustomLog "/var/log/httpd/{{ zabbix_web_url }}_access_ssl.log" combined
+  CustomLog "/var/log/httpd24/{{ zabbix_web_url }}_access_ssl.log" combined
   ## Rewrite rules
   RewriteEngine On
 
