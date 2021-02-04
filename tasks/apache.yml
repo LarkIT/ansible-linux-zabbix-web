@@ -27,7 +27,7 @@
         owner: root
         group: root
         mode: '0644'
-        state: direcotry
+        state: directory
     - name: Ensure certs directory exists
       file:
         path: "{{ zabbix_web_tls_certs_dir }}"
