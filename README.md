@@ -7,8 +7,6 @@ This role is known to work on the following operating systems:
 - CentOS 7
 
 ## Dependencies
-This role epends on the following Ansible Galaxy roles:
-- dj-wasabi.zabbix-web (https://galaxy.ansible.com/dj-wasabi/zabbix-web)
 
 ## Variables
 | Variable | Required? | Default Value | Type | Description |
