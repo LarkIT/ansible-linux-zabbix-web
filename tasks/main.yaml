@@ -51,3 +51,8 @@
     name: httpd24-httpd
     state: restarted
   when: zabbix_web_conf.changed
+
+- name: Delete setup.php for security
+  file: 
+    path: /usr/share/zabbix/setup.php
+    state: absent
