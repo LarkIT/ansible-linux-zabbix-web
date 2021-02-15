@@ -56,3 +56,9 @@
   file: 
     path: /usr/share/zabbix/setup.php
     state: absent
+
+- name: Copy SAML idp certificate
+  copy:
+    src: idp.crt
+    dest: /usr/share/zabbix/conf/certs/idp.crt
+  when: zabbix_web_saml_cert
