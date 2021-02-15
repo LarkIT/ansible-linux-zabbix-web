@@ -61,4 +61,4 @@
   copy:
     src: idp.crt
     dest: /usr/share/zabbix/conf/certs/idp.crt
-  when: zabbix_web_saml_cert
+  when: zabbix_web_saml_config
