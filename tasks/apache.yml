@@ -108,9 +108,7 @@
 
 - name: Reload firewall
   command: firewall-cmd --reload
-  when: 
-    - firewall80.changed
-    - firewall443.changed
+  when: (firewall80.changed) or (firewall443.changed)
   register: firewallcmdout
 
 - name: Start Apache
